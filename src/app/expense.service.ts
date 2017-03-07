@@ -1,14 +1,17 @@
 import uuidV1 from'uuid/v1';
+import "rxjs/add/operator/toPromise";
+import { Injectable } from "@angular/core";
+import { Http } from "@angular/http";
 import { Expense } from './expense.model';
 
-
+@Injectable()
 export class ExpenseService { 
 
 
 
   categories =  ["Food", "Fuel", "Maintenance", "Other"];
 
-  constructor() { }
+  constructor(private http: Http) { }
 
 
   addExpense(expense: Expense): Promise<void> {
@@ -21,8 +24,10 @@ export class ExpenseService {
   }
 
   getExpenses(): Promise<Expense[]> {
-    console.log("Go Fuck Yourself");
-    return Promise.resolve([]); //todo
+    // console.log("Go Fuck Yourself");
+    return this.http.get('https://api-land-chesnowitz.c9users.io/expenses/')
+    .toPromise()
+    .then(response => response.json());
   }
  
   updateExpense(expense: Expense): Promise<void> {
