@@ -1,43 +1,36 @@
-import Dexie from'dexie';
 import uuidV1 from'uuid/v1';
 import { Expense } from './expense.model';
 
 
-export class ExpenseService extends Dexie{ 
+export class ExpenseService { 
 
 
-	expenses: Dexie.Table<Expense, string>;
+
   categories =  ["Food", "Fuel", "Maintenance", "Other"];
 
-  constructor() {
-  	super("expense_tracker");
-  	this.version(1).stores({
-  		expenses: 'id, date'
-  	});
-  }
-  addExpense(expense: Expense) {
+  constructor() { }
+
+
+  addExpense(expense: Expense): Promise<void> {
     expense.id = uuidV1();
-    this.expenses.add(expense)
+    return Promise.resolve(); //todo
   }
 
-  getExpense(expenseId: string): Dexie.Promise<Expense> {
-   
-    return this.expenses.get(expenseId);
+  getExpense(expenseId: string): Promise<Expense> {
+    return Promise.resolve(null); //todo
   }
 
-  getExpenses(): Dexie.Promise<Expense[]> {
+  getExpenses(): Promise<Expense[]> {
     console.log("Go Fuck Yourself");
-    return this.expenses.toArray();
-     
+    return Promise.resolve([]); //todo
+  }
+ 
+  updateExpense(expense: Expense): Promise<void> {
+    return Promise.resolve(); //todo
   }
 
-
-  updateExpense(expense: Expense) {
-    this.expenses.update(expense.id, expense);
-  }
-
-  removeExpense(expenseId: string) {
-     this.expenses.delete(expenseId);
+  removeExpense(expenseId: string): Promise<void> {
+     return Promise.resolve(); //todo
   }
 
 }
